@@ -136,6 +136,34 @@ public class MyGraph <Ttype>{
 		}
 	}
 	
+	public void removeEdge(Ttype elementFrom, Ttype elementTo, float weight) throws Exception{
+		if(elementFrom == null || elementTo == null || weight <= 0) {
+			throw new Exception("Wrong input params");
+		}
+		int indexOfElementFrom = getIndexOfVertice(elementFrom);
+		int indexOfElementTo = getIndexOfVertice(elementTo);
+		
+		if(indexOfElementFrom == -1) {
+			throw new Exception("Element from (" + elementFrom + ") does not exist!");
+		}
+		if(indexOfElementTo == -1) {
+			throw new Exception("Element to (" + elementTo + ") does not exist!");
+		}
+		
+		MyEdgeNode tempEdge = vertices[indexOfElementFrom].getFirstEdgeNode();
+		while(tempEdge != null) {
+			
+			if(tempEdge.getIndexOfEdgeTo() == indexOfElementTo && tempEdge.getWeight() == weight){
+				throw new Exception("This edge betwwen " + elementFrom + " -> " + elementTo + " already exists");
+			}
+			
+			
+			tempEdge = tempEdge.getNext();
+		}
+	}
 	
+	public void removeVertice() {
+		
+	}
 	
 }
