@@ -116,7 +116,7 @@ public class MyGraph <Ttype>{
 		return -1;
 	}
 	
-	private void print() throws Exception{
+	public void print() throws Exception{
 		if(isEmpty()) {
 			throw new Exception("Graph is empty");
 		}
