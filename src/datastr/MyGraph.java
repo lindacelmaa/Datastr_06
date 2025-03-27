@@ -115,4 +115,27 @@ public class MyGraph <Ttype>{
 		}
 		return -1;
 	}
+	
+	private void print() throws Exception{
+		if(isEmpty()) {
+			throw new Exception("Graph is empty");
+		}
+		
+		for(int i = 0; i < counter; i++) {
+			System.out.print(vertices[i].getVerticeElement() + " - > ");
+			MyEdgeNode tempEdge = vertices[i].getFirstEdgeNode();
+			while(tempEdge != null) {
+				float weight = tempEdge.getWeight();
+				Ttype vertice = (Ttype)vertices[tempEdge.getIndexOfEdgeTo()].getVerticeElement();
+				
+				System.out.print(vertice + "(" + weight + " km); ");
+				
+				tempEdge = tempEdge.getNext();
+			}
+			System.out.println();
+		}
+	}
+	
+	
+	
 }
