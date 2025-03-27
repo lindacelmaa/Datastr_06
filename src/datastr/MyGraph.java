@@ -53,4 +53,66 @@ public class MyGraph <Ttype>{
 		System.gc();
 			
 	}
+	
+	public void addVertice(Ttype element) throws Exception{
+		if(element == null) {
+			throw new Exception("Element cann not be null!");
+		}
+		if(isFull()) {
+			resize();
+		}
+		
+		MyVerticeNode<Ttype> newVerticeNode = new MyVerticeNode(element);
+		vertices[counter] = newVerticeNode;
+		counter++;
+	}
+	
+	public void addEdge(Ttype elementFrom, Ttype elementTo, float weight) throws Exception{
+		if(elementFrom == null || elementTo == null || weight <= 0) {
+			throw new Exception("Wrong input params");
+		}
+		
+		int indexOfElementFrom = getIndexOfVertice(elementFrom);
+		int indexOfElementTo = getIndexOfVertice(elementTo);
+		
+		if(indexOfElementFrom == -1) {
+			throw new Exception("Element from (" + elementFrom + ") does not exist!");
+		}
+		if(indexOfElementTo == -1) {
+			throw new Exception("Element to (" + elementTo + ") does not exist!");
+		}
+		
+		MyEdgeNode tempEdge = vertices[indexOfElementFrom].getFirstEdgeNode();
+		while(tempEdge != null) {
+			
+			if(tempEdge.getIndexOfEdgeTo() == indexOfElementTo && tempEdge.getWeight() == weight){
+				throw new Exception("This edge betwwen " + elementFrom + " -> " + elementTo + " already exists");
+			}
+			
+			
+			tempEdge = tempEdge.getNext();
+		}
+		
+		MyEdgeNode newEdge = new MyEdgeNode(indexOfElementTo, weight);
+		if(vertices[indexOfElementFrom].getFirstEdgeNode() == null) {
+			vertices[indexOfElementFrom].setFirstEdgeNode(newEdge);
+		}else {
+			MyEdgeNode currentFirstEdge = vertices[indexOfElementFrom].getFirstEdgeNode();
+			newEdge.setNext(currentFirstEdge);
+			currentFirstEdge.setPrevious(newEdge);
+			vertices[indexOfElementFrom].setFirstEdgeNode(newEdge);
+			
+		}
+		
+		
+	}
+	
+	private int getIndexOfVertice(Ttype vertice) {
+		for(int i = 0; i < counter ; i++) {
+			if(vertices[i].getVerticeElement().equals(vertice)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 }
