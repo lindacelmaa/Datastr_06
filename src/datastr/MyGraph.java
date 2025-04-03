@@ -162,8 +162,24 @@ public class MyGraph <Ttype>{
 		}
 	}
 	
-	public void removeVertice() {
+	//public void removeVertice() {
 		
+	public String searchPathDepthFirstAlgorithm(Ttype elementFrom, Ttype elementTo) throws Exception{
+		if(elementFrom == null || elementTo == null) {
+			throw new Exception("Wrong input params!");
+		}
+		
+		int indexOfElementFrom = getIndexOfVertice(elementFrom);
+		int indexOfElementTo = getIndexOfVertice(elementTo);
+		
+		if(indexOfElementFrom == -1) {
+			throw new Exception("Element from (" + elementFrom + ") does not exist!");
+		}
+		if(indexOfElementTo == -1) {
+			throw new Exception("Element to (" + elementTo + ") does not exist!");
+		}
+		
+		return null;
 	}
 	
 }
