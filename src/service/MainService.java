@@ -1,6 +1,10 @@
 package service;
 
+import java.util.HashMap;
+import java.util.Set;
+
 import datastr.MyGraph;
+import model.City;
 
 public class MainService {
 
@@ -43,15 +47,33 @@ public class MainService {
 			System.out.println("Path" + myMap.searchPathDepthFirstAlgorithm("Austin", "Washington"));
 			System.out.println("Path" + myMap.searchPathDepthFirstAlgorithm("Dallas", "Houston"));
 			
+			HashMap<String, City> myHashMap = new HashMap<String, City>();
+			myHashMap.put("Ventspils", new City("Ventspils", "Vitolins", 57.97f));
+			myHashMap.put("Riga", new City("Riga", "Kirsis", 307.2f));
+			myHashMap.put("Kuldiga", new City("Kuldiga", "Astasevska", 13.2f));
+			
+			Set<String> allKeys = myHashMap.keySet();
+			for(String tempK : allKeys) {
+				System.out.println(tempK);
+			}
+			
+			System.out.println(myHashMap.get("Ventspils"));
+			System.out.println(myHashMap.get("Veeeentspils"));
+			
+			myHashMap.put("Kuldiga", new City("Liepaja", "Ansins", 68.02f));
+			myHashMap.remove("Riga");
+			System.out.println(myHashMap.get("Riga"));
 			
 			
+			System.out.println(myHashMap.values());
 			
+			System.out.println(myHashMap.entrySet());
 			
 			
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-
+		
 	}
 
 }
