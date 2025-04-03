@@ -1,5 +1,6 @@
 package datastr;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class MyGraph <Ttype>{
@@ -229,7 +230,57 @@ public class MyGraph <Ttype>{
 		
 	}
 	
-	
+	public void minimumSpanningTreeOpt() {
+		
+		int howManyVerticesVisited = 0;
+		
+		vertices[0].setVisited(true);
+		howManyVerticesVisited ++;
+		Stack<MyVerticeNode> stackForVisitedVertices = new Stack<MyVerticeNode>();
+		stackForVisitedVertices.push(vertices[0]);
+		ArrayList<MyFullEdgeNode> fullEdges = new ArrayList<MyFullEdgeNode>();
+		
+		
+		while(howManyVerticesVisited < counter) {
+			MyVerticeNode<Ttype> nodeFromStack = stackForVisitedVertices.pop();
+			MyEdgeNode currentEdgeNode = nodeFromStack.getFirstEdgeNode();
+			while(currentEdgeNode != null) {
+				
+				int indexOfVerticeFrom = getIndexOfVertice(nodeFromStack.getVerticeElement());
+				MyFullEdgeNode fullEdge = new MyFullEdgeNode(currentEdgeNode, indexOfVerticeFrom);
+				
+				
+				currentEdgeNode = currentEdgeNode.getNext();
+			}
+			
+			for(MyFullEdgeNode tempFullEdge : fullEdges) {
+				int indexElementTo = tempFullEdge.getEdgeFromGraph().getIndexOfEdgeTo();
+				if(vertices[indexElementTo].isVisited()) {
+					tempFullEdge.setNeedToDelete(true);
+					tempFullEdge.setVisited(true);
+				}
+			}
+			
+			float minWeight = Float.MAX_VALUE;
+			MyFullEdgeNode edgeNodeWithSmallerWeight = null;
+			for(MyFullEdgeNode tempFullEdge : fullEdges) {
+				if(!tempFullEdge.isVisited()) {
+					if(tempFullEdge.getEdgeFromGraph().getWeight() < minWeight) {
+						minWeight = tempFullEdge.getEdgeFromGraph().getWeight();
+						edgeNodeWithSmallerWeight = tempFullEdge;
+					}
+				}
+			}
+			edgeNodeWithSmallerWeight.setNeedToDelete(false);
+			edgeNodeWithSmallerWeight.setVisited(true);
+			
+			int indexOfVerticeWithSmallerEdge = edgeNodeWithSmallerWeight.getIndexOfVerticeEdgeFrom();
+			stackForVisitedVertices.push(vertices[indexOfVerticeWithSmallerEdge]);
+			vertices[indexOfVerticeWithSmallerEdge].setVisited(true);
+			howManyVerticesVisited++;
+			
+		}
+	}
 	
 	
 	
