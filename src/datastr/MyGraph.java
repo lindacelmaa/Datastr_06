@@ -1,5 +1,7 @@
 package datastr;
 
+import java.util.Stack;
+
 public class MyGraph <Ttype>{
 	
 	private MyVerticeNode[] vertices;
@@ -179,7 +181,42 @@ public class MyGraph <Ttype>{
 			throw new Exception("Element to (" + elementTo + ") does not exist!");
 		}
 		
-		return null;
+		if(elementFrom.equals(elementTo)) {
+			throw new Exception("Element to is equal to element from");
+		}
+		
+		Stack<MyVerticeNode> stackForVertices = new Stack<MyVerticeNode>();
+		stackForVertices.push(vertices[indexOfElementFrom]);
+		
+		String path = "";
+		
+		do {
+			MyVerticeNode nodeFromStack = stackForVertices.pop();
+			int indexOfNodeFromStack = getIndexOfVertice((Ttype)nodeFromStack.getVerticeElement());
+			vertices[indexOfNodeFromStack].setVisited(true);
+			
+			if(nodeFromStack.getVerticeElement().equals(elementTo)) {
+				path += " -> " + nodeFromStack.getVerticeElement();
+				return path;
+			}else {
+				path += " -> " + nodeFromStack.getVerticeElement();
+				MyEdgeNode currentEdgeNode = nodeFromStack.getFirstEdgeNode();
+				
+				while(currentEdgeNode != null) {
+					
+					int indexOfNeighbour = currentEdgeNode.getIndexOfEdgeTo();
+					MyVerticeNode verticeOfNeighbour = vertices[indexOfNeighbour];
+					if(!verticeOfNeighbour .isVisited()) {
+						stackForVertices.push(verticeOfNeighbour);
+					}
+					
+					currentEdgeNode = currentEdgeNode.getNext();
+				}
+			}
+			
+		}while(!stackForVertices.empty());
+		
+		return "Path is not found!";
 	}
 	
 }
