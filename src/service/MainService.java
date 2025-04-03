@@ -39,6 +39,9 @@ public class MainService {
 			
 			myMap.print();
 			
+			System.out.println("-----------------------");
+			System.out.println("Path" + myMap.searchPathDepthFirstAlgorithm("Austin", "Washington"));
+			System.out.println("Path" + myMap.searchPathDepthFirstAlgorithm("Dallas", "Houston"));
 			
 			
 			

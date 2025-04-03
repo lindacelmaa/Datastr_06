@@ -185,6 +185,7 @@ public class MyGraph <Ttype>{
 			throw new Exception("Element to is equal to element from");
 		}
 		
+		verticeIsFalse();
 		Stack<MyVerticeNode> stackForVertices = new Stack<MyVerticeNode>();
 		stackForVertices.push(vertices[indexOfElementFrom]);
 		
@@ -218,5 +219,20 @@ public class MyGraph <Ttype>{
 		
 		return "Path is not found!";
 	}
+	
+	
+	private void verticeIsFalse() {
+		
+		for(int i = 0; i < counter; i++) {
+			vertices[i].setVisited(false);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 }
